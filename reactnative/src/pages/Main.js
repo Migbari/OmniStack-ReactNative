@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
+import { StyleSheet, Image, View, Text, TextInput } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 // requestPermissionsAsync - Solicita permissão de localização p/ o usuário
@@ -7,14 +7,14 @@ import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 
 
 // Instalamos o módulo de geolocalização do expo > expo install expo-location
-// Obs. Para utilizar na função loadInitialPosit
-function Main() {
+// Obs. Para utilizar na função loadInitialPosition
+function Main( {navigation} ) {
 
-    // Cria estado e armazenar info preenchidas por loadInitialPosit
+    // Cria estado e armazenar info preenchidas por loadInitialPosition
     const [currentRegion, setCurrentRegion] = useState(null);
     useEffect(() => {
         // Função que carrega a posição inicial no mapa
-        async function loadInitialPosit() {
+        async function loadInitialPosition() {
 
             // Informa se o acesso a local foi permitido    
             const { granted } = await requestPermissionsAsync();
@@ -39,20 +39,26 @@ function Main() {
         }
         // Chamamos a função logo abaixo de sua declaração. Isso faz com que 
         // ela seja executada logo após a montagem do useEffect();
-        loadInitialPosit();
-    }, [])
+        loadInitialPosition();
+    }, []);
     // Não renderiza se for null. 
     if (!currentRegion) {
         return null;
     }
 
-    // Passa uma propriedade ↓ para usar ↓ dentro do mapa 
     return (
-
+        
+        // Passa uma propriedade para usar currentRegion dentro do mapa 
         <MapView initialRegion={currentRegion} style={styles.map}>
-            <Marker coordinate={{ latitude: -27.211164, longitude: -49.6374491 }}>
+            <Marker coordinate={{ latitude: -23.4811605, longitude: -46.7198751 }}>
                 <Image style={styles.avatar} source={{ uri: 'https://avatars2.githubusercontent.com/u/55153496?s=400&u=679522c986909b2cfbfcca319209fab944b746d7&v=4' }} />
-                <Callout>
+                {/* callout - semelhante a div, onPress - semelhante a onClick */}
+                <Callout onPress={() => {
+                // Passa a propriedade navigation como parametro da função Main - Usa método navigate e passa o nome da proxima tela
+                // Passou usuario como parametro e envia para tela Perfil
+                 navigation.navigate('Profile', { github_username: 'Migbari' })
+                     
+                }}>
                     <View style={styles.callout}>
                         <Text style={styles.devName}>Miguel Batista</Text>
                         <Text style={styles.devBio}>May your faith in life be greater than your fears!</Text>
@@ -71,8 +77,8 @@ const styles = StyleSheet.create({
     avatar: {
         width: 54,
         height: 54,
-        borderRadius: 10,
-        borderWidth: 4,
+        borderRadius: 27,
+        borderWidth: 2,
         borderColor: '#FFF',
     },
     callout: {

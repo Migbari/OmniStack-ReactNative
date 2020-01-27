@@ -24,7 +24,8 @@ const Routes = createAppContainer(
     }, { // Passamos como segundo parametro da função createStackNavigator
         // As mesmas navigationOptions utilizadas anteriormente, porém por ser default será aplicada em todas as telas
         defaultNavigationOptions:{ 
-            headerTintColor: '#FFF',    
+            headerTintColor: '#FFF',  
+            handerBackTitleVisible: false,  // Para Sistema IOS
             headerStyle:{
                 backgroundColor: '#7D40E7',
             }
