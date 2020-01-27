@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
-import { Marker } from 'react-native-maps';
 // requestPermissionsAsync - Solicita permissão de localização p/ o usuário
 // getCurrentPositionAsync - Pega a localização do usuário
 
